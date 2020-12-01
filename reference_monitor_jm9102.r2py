@@ -49,10 +49,6 @@ class ABFile():
             log('Error in offset < 0')
             raise RepyArgumentError
             self.lock.release()
-        elif bytes < 0 and bytes is not None:
-            log('Error in byte count')
-            raise RepyArgumentError
-            self.lock.release()
         elif offset > len(self.Bfile.readat(None, 0)):
             log('Error with offset and length of file')
             raise SeekPastEndOfFileError
@@ -69,8 +65,13 @@ class ABFile():
         if not(self.Afile in listfiles()):
             log('Error, file not found')
             raise RepyArgumentError
+            self.lock.release()
         elif offset < 0:
             log('Error in offset < 0')
+            raise RepyArgumentError
+            self.lock.release()
+        elif (len(self.Afile.readat(None, 0))) < 0:
+            log('Error, length can not be less than 0')
             raise RepyArgumentError
             self.lock.release()
         elif bytes < 0 and bytes is not None:
