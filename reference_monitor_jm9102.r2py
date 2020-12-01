@@ -23,7 +23,7 @@ class ABFile():
         mycontext['debug'] = False
         fileName_split = filename.split('.')
          # local (per object) reference to the underlying file
-        if fileName_split[0].isalnum and fileName_split[0].islower():
+        if fileName_split[0].isalnum and fileName_split[0].islower() and fileName_split[1] == 'txt':
             self.Afn = filename + '.a'
             self.Bfn = filename + '.b'
         # make the files and add 'SE' to the readat file...
