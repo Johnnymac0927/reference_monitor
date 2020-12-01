@@ -54,7 +54,7 @@ class ABFile():
             raise SeekPastEndOfFileError
             self.lock.release()
         else:
-            return self.Bfile.writeat(data, offset)
+            self.Bfile.writeat(data, offset)
             self.lock.release()
 
 
