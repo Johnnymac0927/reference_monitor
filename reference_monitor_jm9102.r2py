@@ -43,15 +43,19 @@ class ABFile():
         self.lock.acquire(True)
         if not(self.Bfile in listfiles()):
             log('Error, file not found')
+            raise RepyArgumentError
             self.lock.release()
         elif offset < 0:
             log('Error in offset < 0')
+            raise RepyArgumentError
             self.lock.release()
         elif bytes < 0 and bytes is not None:
             log('Error in byte count')
+            raise RepyArgumentError
             self.lock.release()
         elif offset > len(self.Bfile.readt(None, 0)):
             log('Error with offset and length of file')
+            raise SeekPastEndOfFileError
             self.lock.release()
         else:
             self.Bfile.writeat(data, offset)
@@ -64,14 +68,18 @@ class ABFile():
         self.lock.acquire(True)
         if not(self.Afile in listfiles()):
             log('Error, file not found')
+            raise RepyArgumentError
         elif offset < 0:
             log('Error in offset < 0')
+            raise RepyArgumentError
             self.lock.release()
         elif bytes < 0 and bytes is not None:
             log('Error in byte count')
+            raise RepyArgumentError
             self.lock.release()
         elif offset > len(self.Afile.readt(None, 0)):
             log('Error with offset and length of file')
+            raise SeekPastEndOfFileError
             self.lock.release()
         else:
             doc_data = self.Afile.readat(bytes, offset)
