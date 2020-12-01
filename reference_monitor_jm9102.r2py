@@ -53,7 +53,7 @@ class ABFile():
             log('Error in byte count')
             raise RepyArgumentError
             self.lock.release()
-        elif offset > len(self.Bfile.readt(None, 0)):
+        elif offset > len(self.Bfile.readat(None, 0)):
             log('Error with offset and length of file')
             raise SeekPastEndOfFileError
             self.lock.release()
@@ -77,7 +77,7 @@ class ABFile():
             log('Error in byte count')
             raise RepyArgumentError
             self.lock.release()
-        elif offset > len(self.Afile.readt(None, 0)):
+        elif offset > len(self.Afile.readat(None, 0)):
             log('Error with offset and length of file')
             raise SeekPastEndOfFileError
             self.lock.release()
