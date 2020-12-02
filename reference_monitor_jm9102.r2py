@@ -21,17 +21,18 @@ OBJC = "objc"
 class ABFile():
     def __init__(self, filename, create):
         mycontext['debug'] = False
-        fileName_split = filename.split('.')
+        fileName_split = filename.split(".")
          # local (per object) reference to the underlying file
-        if fileName_split[0].isalnum and fileName_split[0].islower() and fileName_split[1] == 'txt':
+        if fileName_split[0].isalnum and fileName_split[0].islower()
             self.Afn = filename + '.a'
             self.Bfn = filename + '.b'
         # make the files and add 'SE' to the readat file...
-            if create:
+            if create and not exist_file:
                 self.Afile = openfile(self.Afn, create)
                 self.Bfile = openfile(self.Bfn, create)
                 if(not(self.Afile.readat(None, 0).startswith('S') and self.Afile.readat(None, 0).endswith('E') and self.Bfile.readat(None, 0).startswith('S') and self.Bfile.readat(None, 0).endswith('E'))):
-                    self.Afile.writeat('SE', 0)
+                    self.Afile.writeat("SE", 0)
+                    self.Bfile.writeat("SE", 0
             else:
                 self.Afile = openfile(self.Afn, False)
                 self.Bfile = openfile(self.Bfn, False)
@@ -42,16 +43,10 @@ class ABFile():
         self.lock = createlock()
         self.lock.acquire(True)
         if not(self.Bfile in listfiles()):
-            log('Error, file not found')
-            raise RepyArgumentError
             self.lock.release()
         elif offset < 0:
-            log('Error in offset < 0')
-            raise RepyArgumentError
             self.lock.release()
-        elif offset > len(self.Bfile.readat(None, 0)):
-            log('Error with offset and length of file')
-            raise SeekPastEndOfFileError
+        elif offset > (len(self.Bfile.readat(None, 0)) + 1):
             self.lock.release()
         else:
             self.Bfile.writeat(data, offset)
@@ -63,24 +58,14 @@ class ABFile():
         self.lock = createlock()
         self.lock.acquire(True)
         if not(self.Afile in listfiles()):
-            log('Error, file not found')
-            raise RepyArgumentError
             self.lock.release()
         elif offset < 0:
-            log('Error in offset < 0')
-            raise RepyArgumentError
             self.lock.release()
         elif (len(self.Afile.readat(None, 0))) < 0:
-            log('Error, length can not be less than 0')
-            raise RepyArgumentError
             self.lock.release()
         elif bytes < 0 and bytes is not None:
-            log('Error in byte count')
-            raise RepyArgumentError
             self.lock.release()
-        elif offset > len(self.Afile.readat(None, 0)):
-            log('Error with offset and length of file')
-            raise SeekPastEndOfFileError
+        elif offset > len(self.Afile.readat(None, 0) + 1):
             self.lock.release()
         else:
             doc_data = self.Afile.readat(bytes, offset)
@@ -94,8 +79,8 @@ class ABFile():
         data_A = self.Afile.readat(None, 0)
         data_B = self.Bfile.readat(None, 0)
 
-        if self.Afile.readat(None, 0).startswith('S') and self.Afile.readat(None, 0).endswith('E'):
-            if self.Bfile.readat(None, 0).startswith('S') and self.Bfile.readat(None, 0).endswith('E'):
+        if self.Afile.readat(None, 0).startswith("S") and self.Afile.readat(None, 0).endswith("E"):
+            if self.Bfile.readat(None, 0).startswith("S") and self.Bfile.readat(None, 0).endswith("E"):
                 self.Afile.writeat(data_B, 0)
         else:
             self.Bfile.writeat(data_A, 0)
