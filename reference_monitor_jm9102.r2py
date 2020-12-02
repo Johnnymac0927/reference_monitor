@@ -32,7 +32,7 @@ class ABFile():
                 self.Bfile = openfile(self.Bfn, create)
                 if(not(self.Afile.readat(None, 0).startswith('S') and self.Afile.readat(None, 0).endswith('E') and self.Bfile.readat(None, 0).startswith('S') and self.Bfile.readat(None, 0).endswith('E'))):
                     self.Afile.writeat("SE", 0)
-                    self.Bfile.writeat("SE", 0
+                    self.Bfile.writeat("SE", 0)
             else:
                 self.Afile = openfile(self.Afn, False)
                 self.Bfile = openfile(self.Bfn, False)
@@ -49,7 +49,7 @@ class ABFile():
         elif offset > (len(self.Bfile.readat(None, 0)) + 1):
             self.lock.release()
         else:
-            self.Bfile.writeat(data, offset)
+            self.Bfile.writeat(self, data, offset)
             self.lock.release()
 
 
@@ -68,7 +68,7 @@ class ABFile():
         elif offset > len(self.Afile.readat(None, 0) + 1):
             self.lock.release()
         else:
-            doc_data = self.Afile.readat(bytes, offset)
+            doc_data = self.Afile.readat(self, bytes, offset)
             self.lock.release()
             return doc_data
 
