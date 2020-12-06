@@ -1,0 +1,22 @@
+# Invalid Write Test
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+ removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+ removefile("testfile.txt.b")
+
+# Create File and add invalid text
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile.writeat("Sample Text", 0)
+
+#Close the file
+myfile.close()
+myfile = ABopenfile("testfile.txt", True)  #Create an AB file
+
+try:
+    assert('SE' == myfile.readat(None, 0)
+    myfile.close()
+except:
+    log("Invalid write to file allowed.  Test Failed")
+    myfile.close()
