@@ -1,0 +1,21 @@
+# Invalid Read Test
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile.writeat("StressTestLE", 0)
+myfile.close()
+
+myfile = ABopenfile("testfile.txt", True)
+
+try:
+    myfile.readat(None, -2)
+    myfile.close()
+except:
+    log("Invalid Read Allowed.  Test Failed")
+    myfile.close()

@@ -1,0 +1,17 @@
+#Testing an empty write
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+    removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+    removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile.writeat("", 0)
+
+try:
+    assert("SE" == myfile.readat(2, 0))
+    myfile.close()
+except:
+    log("Empty Write Allowed and Valid.  Test Failed."

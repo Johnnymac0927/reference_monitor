@@ -1,0 +1,24 @@
+# Writing Multiple Valid Writes
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile.writeat("StressTestLE", 0)
+myfile.writeat("S_valid_data_E", 0)
+myfile.writeat("SsomedatahereE"
+myfile.close()
+
+myfile = ABopenfile("testfile.txt", True)
+
+try:
+    #test if the valid write works
+    assert("StressTestLE" = myfile.readat(12, 0))
+    myfile.close()
+except:
+    log("Multiple Writes not Allowed.  Test Failed")
+    myfile.close()

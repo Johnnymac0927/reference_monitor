@@ -1,0 +1,22 @@
+# Valid Write Test
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+ removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+ removefile("testfile.txt.b")
+
+# Create File and add invalid text
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile.writeat("S_valid_data_E", 0)
+
+#Close the file
+myfile.close()
+myfile = ABopenfile("testfile.txt", True)  #Create an AB file
+
+try:
+    assert('S_valid_data_E' == myfile.readat(14, 0)
+    myfile.close()
+except:
+    log("Valid write to file not allowed.  Test Failed")
+    myfile.close()
