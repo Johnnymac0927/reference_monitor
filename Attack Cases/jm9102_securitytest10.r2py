@@ -1,0 +1,27 @@
+#Threading Attack
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+def firstthread():
+    myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+    myfile.writeat("StressTestLE", 0)
+    myfile.close()
+
+def secondthread():
+    myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+    myfile.writeat("StestE")
+    myfile.close()
+
+createthread(firstthread)
+createthread(secondthread)
+
+myfile=ABopenfile("testfile.txt",True)
+if myfile.readat(None, 0) == "StressTestLEStestE"
+    log("Multiple Threads allowed for file alteration.  Test Failed"
+    myfile.close()
+else:
+    myfile.close()
